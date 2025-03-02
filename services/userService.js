@@ -7,20 +7,20 @@ const userService = {
 
     getUserById: (id) => {
         const user = User.getById(id);
-        if (!user) throw new Error('user not found');
+        if (!user) throw new Error('Usuario no encontrado');
         return user;
     },
 
     getUserByEmail: (email) => {
         const user = User.getByEmail(email);
-        if (!user) throw new Error('user not found');
+        if (!user) throw new Error('Usuario no encontrado');
         return user;
     },
 
     createUser: (userData) => {
         const existingUser = User.getByEmail(userData.email);
         if (existingUser) {
-            throw new Error('Email already registered');
+            throw new Error('Correo ya registrado');
         }
         const hashedPassword = bcrypt.hashSync(userData.password, 10);
         const newUser = { ...userData, password: hashedPassword };
@@ -32,14 +32,20 @@ const userService = {
             userData.password = bcrypt.hashSync(userData.password, 10);
         }
         const user = User.updateUser(id, userData);
-        if (!user) throw new Error('user not found');
+        if (!user) throw new Error('Usuario no encontrado');
         return user;
     },
 
     deleteUser: (id) => {
         const result = User.deleteUser(id);
-        if (!result) throw new Error('User not found');
+        if (!result) throw new Error('Usuario no encontrado');
         return result;
+    },
+
+    getUsersWithLikeSwipe: () => {
+        const likedUsers = User.getMatchesBySwipe("like");
+        if (!likedUsers.length) throw new Error("No se encontraron usuarios con me gusta");
+        return likedUsers;
     }
 
 

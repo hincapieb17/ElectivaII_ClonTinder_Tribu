@@ -49,6 +49,16 @@ const userController = {
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
+    },
+
+    getUsersWithLikeSwipe: async (req, res) => {
+        try {
+            const likedUsers = userService.getUsersWithLikeSwipe();
+        res.json(likedUsers);
+        }catch (error) {
+            res.status(404).json({ message: error.message})
+        }
+        
     }
 
 

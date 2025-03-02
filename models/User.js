@@ -1,4 +1,5 @@
-const users = require('../config/database');
+const users = require('../config/database').users;
+const matches = require('../config/database').matches;
 
 class User {
 
@@ -34,6 +35,10 @@ class User {
         if (index === -1) return null;
         return users.splice(index, 1)[0];
     }
+
+    static getMatchesBySwipe(swipeType) {
+        return matches.filter(match => match.swipe === swipeType);
+      }
 
     
 }

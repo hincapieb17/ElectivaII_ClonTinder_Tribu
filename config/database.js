@@ -48,4 +48,48 @@ const users = [
     }
 ];
 
-module.exports = users;
+const matches = [
+  {
+    "user_id": 1,
+    "name": "Maria",
+    "age": 25,
+    "location": "Bogotá",
+    "interests": ["Travel", "Movies", "Music"],
+    "swipe": "like"
+  },
+  {
+    "user_id": 2,
+    "name": "Carlos",
+    "age": 28,
+    "location": "Medellín",
+    "interests": ["Sports", "Technology", "Cooking"],
+    "swipe": "dislike"
+  },
+  {
+    "user_id": 3,
+    "name": "Laura",
+    "age": 24,
+    "location": "Cali",
+    "interests": ["Photography", "Books", "Yoga"],
+    "swipe": "like"
+  },
+  {
+    "user_id": 4,
+    "name": "Andrew",
+    "age": 30,
+    "location": "Cartagena",
+    "interests": ["Surfing", "Languages", "Gastronomy"],
+    "swipe": "dislike"
+  },
+  {
+    "user_id": 5,
+    "name": "Daniela",
+    "age": 27,
+    "location": "Barranquilla",
+    "interests": ["Dance", "Cinema", "Entrepreneurship"],
+    "swipe": "like"
+  }
+];
+
+
+module.exports = {users, matches};

@@ -11,6 +11,6 @@ app.use(express.json());
 app.use('/api', userRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Tribu API running on port ${PORT}`);
+    console.log(`Corriendo en el puertot ${PORT}`);
 })
 

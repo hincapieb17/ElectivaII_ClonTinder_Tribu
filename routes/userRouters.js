@@ -20,4 +20,7 @@ router.route('/v1/deleteUser/:id').delete(authMiddleware ,userController.deleteU
 // Iniciar sesión y obtener el token
 router.route('/v1/login').post(authController.loginUser);
 
+//Obtenet matches
+router.route('/v1/users/liked').get(authMiddleware, userController.getUsersWithLikeSwipe);
+
 module.exports = router;
