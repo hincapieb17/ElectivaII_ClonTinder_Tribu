@@ -1,12 +1,12 @@
 # Tribu
 
-##Nombre de la Materia
+## Nombre de la Materia
 Electiva II
 
-##Nombre Equipo
+## Nombre Equipo
 Tribu
 
-##Integrantes Del Equipo
+## Integrantes Del Equipo
 Brayan Hincapie Monsalve
 
 ## Descripción
