@@ -92,4 +92,12 @@ const matches = [
 ];
 
 
-module.exports = {users, matches};
+const swipes = [
+  { "userId": 1, "likedUserId": 2, "swipe": "like" },
+  { "userId": 2, "likedUserId": 3, "swipe": "dislike" },
+  { "userId": 3, "likedUserId": 4, "swipe": "like" },
+  { "userId": 4, "likedUserId": 5, "swipe": "dislike" },
+  { "userId": 5, "likedUserId": 1, "swipe": "like" }
+]; // likes/dislikes
+
+module.exports = { users, matches, swipes };

@@ -46,6 +46,27 @@ const userService = {
         const likedUsers = User.getMatchesBySwipe("like");
         if (!likedUsers.length) throw new Error("No se encontraron usuarios con me gusta");
         return likedUsers;
+    },
+
+    createSwipe: (userId, likedUserId, swipeType) => {
+        if (!["like", "dislike"].includes(swipeType)) {
+            throw new Error("El swipe debe ser 'like' o 'dislike'");
+        }
+
+        // Verificar si ya existe un swipe
+        const existingSwipe = User.getUserSwipes(userId).find(swipe => swipe.likedUserId === likedUserId);
+        if (existingSwipe) {
+            throw new Error("Ya existe un swipe para este usuario");
+        }
+
+        return User.createSwipe(userId, likedUserId, swipeType);
+    },
+    
+
+    getUserSwipes: (userId) => {
+        const userSwipes = User.getUserSwipes(userId);
+        if (!userSwipes) throw new Error('Usuario no encontrado');
+        return userSwipes;
     }
 
 
