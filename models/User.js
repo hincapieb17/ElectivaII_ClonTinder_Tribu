@@ -10,9 +10,15 @@ class User {
         return users.find(user => user.id === parseInt(id));
     }
 
+    static getByEmail(email) {
+        return users.find(user => user.email === email);
+    }    
+
     static create(newUser) {
-        const user = {id: users.length + 1, ...newUser};
-        users.push(user)
+        const lastUser = users[users.length - 1]; 
+        const newId = lastUser ? lastUser.id + 1 : 1;  
+        const user = { id: newId, ...newUser };
+        users.push(user);
         return user;
     }
 

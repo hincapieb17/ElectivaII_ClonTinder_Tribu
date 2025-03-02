@@ -26,7 +26,10 @@ const userController = {
             const newUser = await userService.createUser(req.body);
             res.status(201).json(newUser);
         } catch (error) {
-            res.status(400).json( {message: error.message} );
+            if (error.message === 'Email already registered') {
+                return res.status(400).json({ message: error.message });
+            }
+            res.status(400).json({ message: 'Error creating user' });
         }
 
     },
