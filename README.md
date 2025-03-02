@@ -1,5 +1,14 @@
 # Tribu
 
+##Nombre de la Materia
+Electiva II
+
+##Nombre Equipo
+Tribu
+
+##Integrantes Del Equipo
+Brayan Hincapie Monsalve
+
 ## Descripción
 Este proyecto es una API REST clon de Tinder que incluyendo autenticación con JWT, validación de datos y protección de rutas. Está desarrollado con Node.js y Express.
 
