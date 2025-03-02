@@ -1,5 +1,6 @@
 const {body, validationResult } =require('express-validator');
 
+
 const validateUser = [
     body('firstName').notEmpty().withMessage('first name required'),
     body('lastName').notEmpty().withMessage('last name required'),
@@ -13,5 +14,6 @@ const validateUser = [
         next();
     }
 ];
+
 
 module.exports = validateUser;

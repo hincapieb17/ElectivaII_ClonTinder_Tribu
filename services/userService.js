@@ -11,9 +11,6 @@ const userService = {
     },
 
     createUser: (userData) => {
-        // if(!userData.firstName || !userData.email) {
-        //     throw new Error('name and email are required')
-        // }
         return User.create(userData);
     },
 

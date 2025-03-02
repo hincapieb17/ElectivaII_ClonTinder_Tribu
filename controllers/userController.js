@@ -1,5 +1,7 @@
 const userService = require('../services/userService');
 
+
+
 const userController = { 
     getUsers: async (req, res) => {
         try{

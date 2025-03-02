@@ -7,8 +7,7 @@ const PORT = 3000;
 
 app.use(express.json());
 
-
-// Routes
+// Routes users
 app.use('/api', userRoutes);
 
 app.listen(PORT, () => {
