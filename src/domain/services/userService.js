@@ -1,75 +1,62 @@
-const User = require('../models/User');
+const Usuario = require('../models/User');
+const Swipe = require('../models/Swipe');
+const Match = require('../models/Match');
 const bcrypt = require('bcryptjs');
 
 const userService = {
-    
-    getAllUsers: () => User.getAll(),
+  getAllUsers: async () => await Usuario.find(),
 
-    getUserById: (id) => {
-        const user = User.getById(id);
-        if (!user) throw new Error('Usuario no encontrado');
-        return user;
-    },
+  getUserById: async (id) => {
+    const user = await Usuario.findById(id);
+    if (!user) throw new Error('Usuario no encontrado');
+    return user;
+  },
 
-    getUserByEmail: (email) => {
-        const user = User.getByEmail(email);
-        if (!user) throw new Error('Usuario no encontrado');
-        return user;
-    },
+  getUserByEmail: async (email) => {
+    const user = await Usuario.findOne({ email });
+    if (!user) throw new Error('Usuario no encontrado');
+    return user;
+  },
 
-    createUser: (userData) => {
-        const existingUser = User.getByEmail(userData.email);
-        if (existingUser) {
-            throw new Error('Correo ya registrado');
-        }
-        const hashedPassword = bcrypt.hashSync(userData.password, 10);
-        const newUser = { ...userData, password: hashedPassword };
-        return User.create(newUser);
-    },
+  createUser: async (userData) => {
+    const existingUser = await Usuario.findOne({ email: userData.email });
+    if (existingUser) throw new Error('Correo ya registrado');
 
-    updateUser: (id, userData) => {
-        if (userData.password) {
-            userData.password = bcrypt.hashSync(userData.password, 10);
-        }
-        const user = User.updateUser(id, userData);
-        if (!user) throw new Error('Usuario no encontrado');
-        return user;
-    },
+    const hashedPassword = bcrypt.hashSync(userData.password, 10);
+    const user = new Usuario({ ...userData, password: hashedPassword });
+    return await user.save();
+  },
 
-    deleteUser: (id) => {
-        const result = User.deleteUser(id);
-        if (!result) throw new Error('Usuario no encontrado');
-        return result;
-    },
-
-    getUsersWithLikeSwipe: () => {
-        const likedUsers = User.getMatchesBySwipe("like");
-        if (!likedUsers.length) throw new Error("No se encontraron usuarios con me gusta");
-        return likedUsers;
-    },
-
-    createSwipe: (userId, likedUserId, swipeType) => {
-        if (!["like", "dislike"].includes(swipeType)) {
-            throw new Error("El swipe debe ser 'like' o 'dislike'");
-        }
-
-        // Verificar si ya existe un swipe
-        const existingSwipe = User.getUserSwipes(userId).find(swipe => swipe.likedUserId === likedUserId);
-        if (existingSwipe) {
-            throw new Error("Ya existe un swipe para este usuario");
-        }
-
-        return User.createSwipe(userId, likedUserId, swipeType);
-    },
-    
-
-    getUserSwipes: (userId) => {
-        const userSwipes = User.getUserSwipes(userId);
-        if (!userSwipes) throw new Error('Usuario no encontrado');
-        return userSwipes;
+  updateUser: async (id, data) => {
+    if (data.password) {
+      data.password = bcrypt.hashSync(data.password, 10);
     }
+    const user = await Usuario.findByIdAndUpdate(id, data, { new: true });
+    if (!user) throw new Error('Usuario no encontrado');
+    return user;
+  },
 
+  deleteUser: async (id) => {
+    const user = await Usuario.findByIdAndDelete(id);
+    if (!user) throw new Error('Usuario no encontrado');
+    return user;
+  },
 
+  createSwipe: async (userId, likedUserId, swipe) => {
+    const existing = await Swipe.findOne({ userId, likedUserId });
+    if (existing) throw new Error('Ya existe un swipe');
+
+    const newSwipe = new Swipe({ userId, likedUserId, swipe });
+    return await newSwipe.save();
+  },
+
+  getUserSwipes: async (userId) => {
+    return await Swipe.find({ userId });
+  },
+
+  getUsersWithLikeSwipe: async () => {
+    return await Match.find({ swipe: 'like' }).populate('user1 user2');
+  }
 };
 
 module.exports = userService;

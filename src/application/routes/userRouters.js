@@ -126,7 +126,7 @@ router.route('/v1/user/:id').get(authMiddleware, userController.getUserById);
  *       201:
  *         description: Usuario creado correctamente
  */
-router.route('/v1/createUser').post(authMiddleware, validateUser, userController.createUser);
+router.route('/v1/createUser').post(validateUser, userController.createUser);
 
 /**
  * @swagger
