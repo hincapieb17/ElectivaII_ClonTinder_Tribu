@@ -1,7 +1,8 @@
 const express = require('express');
-const userRoutes = require('./routes/userRouters');
-
-const swaggerDocs = require("./config/swaggerConfig");
+const userRoutes = require('./application/routes/userRouters')
+//const userRoutes = require('./routes/userRouters');
+const swaggerDocs = require("./infrastructure/config/swaggerConfig");
+//const swaggerDocs = require("./config/swaggerConfig");
 
 
 const app = express();

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const userService = require('../services/userService');
+
+const userService = require('../../domain/services/userService');
+//const userService = require('../services/userService');
 
 const authController = {
     loginUser: async (req, res) => {

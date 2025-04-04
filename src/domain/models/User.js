@@ -1,4 +1,6 @@
-const {users, swipes, matches  } = require('../config/database');
+const {users, swipes, matches  } = require('../../infrastructure/config/database');
+
+//const {users, swipes, matches  } = require('../config/database');
 
 class User {
 
