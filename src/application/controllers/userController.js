@@ -80,7 +80,6 @@ const userController = {
         }
     },
     
-
     getUserSwipes: async (req, res) => {
         try {
             const swipes = await userService.getUserSwipes(req.params.id);

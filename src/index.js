@@ -1,8 +1,8 @@
 const express = require('express');
-const userRoutes = require('./application/routes/userRouters')
-//const userRoutes = require('./routes/userRouters');
+const userRoutes = require('./application/routes/userRouters');
+const swipeRoutes = require('./application/routes/swipeRouters');
 const swaggerDocs = require("./infrastructure/config/swaggerConfig");
-//const swaggerDocs = require("./config/swaggerConfig");
+
 const conectarBD = require('./infrastructure/config/db');
 
 
@@ -19,8 +19,11 @@ conectarBD();
 
 // Routes users
 app.use('/api', userRoutes);
+// Routes Swipe
+app.use('/api', swipeRoutes);
+
 
 app.listen(PORT, () => {
-    console.log(`Corriendo en el puertot ${PORT}`);
+    console.log(`Corriendo en el puerto ${PORT}`);
 })
 
