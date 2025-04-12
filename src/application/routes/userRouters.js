@@ -103,25 +103,48 @@ router.route('/v1/user/:id').get(authMiddleware, userController.getUserById);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - email
+ *               - password
  *             properties:
- *               email:
- *                 type: string
- *                 example: new.user@example.com
- *               password:
- *                 type: string
- *                 example: password123
  *               firstName:
  *                 type: string
  *                 example: John
  *               lastName:
  *                 type: string
  *                 example: Doe
- *               address:
+ *               email:
  *                 type: string
- *                 example: 123 Main St, Anytown, CA 12345
- *               phoneNumber:
+ *                 example: new.user@example.com
+ *               password:
  *                 type: string
- *                 example: 555-123-4567
+ *                 example: password123
+ *               age:
+ *                 type: integer
+ *                 example: 28
+ *               gender:
+ *                 type: string
+ *                 example: male
+ *               preferences:
+ *                 type: object
+ *                 properties:
+ *                   genders:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     example: [ "female", "non-binary" ]
+ *                   min_age:
+ *                     type: integer
+ *                     example: 20
+ *                   max_age:
+ *                     type: integer
+ *                     example: 35
+ *               location:
+ *                 type: string
+ *                 example: Medellín
+ *               profilePicture:
+ *                 type: string
+ *                 example: https://example.com/photo.jpg
  *     responses:
  *       201:
  *         description: Usuario creado correctamente

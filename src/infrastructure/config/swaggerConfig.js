@@ -16,7 +16,7 @@ const options = {
       },
     ],
   },
-  apis: [__dirname + "/../routes/userRouters.js"],
+  apis: ["./src/application/routes/*.js"],
 
 };
 

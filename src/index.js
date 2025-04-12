@@ -1,7 +1,7 @@
 const express = require('express');
 const userRoutes = require('./application/routes/userRouters');
 const swipeRoutes = require('./application/routes/swipeRouters');
-const swaggerDocs = require("./infrastructure/config/swaggerConfig");
+const swaggerDocs = require('./infrastructure/config/swaggerConfig');
 
 const conectarBD = require('./infrastructure/config/db');
 
