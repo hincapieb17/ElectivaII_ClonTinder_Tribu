@@ -21,7 +21,7 @@ const swipeController = {
             const likedUserId = req.params.id;
             const { swipe } = req.body;
     
-            const result = await userService.createSwipe(userId, likedUserId, swipe);
+            const result = await swipeService.createSwipe(userId, likedUserId, swipe);
             res.status(201).json(result);
         } catch (error) {
             res.status(400).json({ message: error.message });
@@ -30,7 +30,7 @@ const swipeController = {
         
     getUserSwipes: async (req, res) => {
         try {
-            const swipes = await userService.getUserSwipes(req.params.id);
+            const swipes = await swipeService.getUserSwipes(req.params.id);
             res.json(swipes);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -39,7 +39,7 @@ const swipeController = {
     
     getUsersWithLikeSwipe: async (req, res) => {
         try {
-            const likedUsers = userService.getUsersWithLikeSwipe();
+            const likedUsers = await swipeService.getUsersWithLikeSwipe();
             res.json(likedUsers);
         }catch (error) {
             res.status(404).json({ message: error.message})
