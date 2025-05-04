@@ -10,15 +10,6 @@ const matchController = {
     }
   },
 
-  getMatchById: async (req, res) => {
-    try {
-      const match = await matchService.getMatchById(req.params.id);
-      res.json(match);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
-  },
-
   createMatch: async (req, res) => {
     try {
       const nuevoMatch = await matchService.createMatch(req.body);

@@ -11,51 +11,83 @@ const router = express.Router();
 
 /**
  * @swagger
- * /v1/matches:
- *   get:
- *     summary: Obtener todos los matches
- *     security:
- *       - bearerAuth: []
- *     tags:
- *       - Matches
- *     responses:
- *       200:
- *         description: Lista de matches obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
+ * components:
+ *   schemas:
+ *     Match:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID único del match
+ *         user1:
+ *           $ref: '#/components/schemas/User'
+ *         user2:
+ *           $ref: '#/components/schemas/User'
+ *         swipe:
+ *           type: boolean
+ *           enum:
+ *             - true
+ *             - false
+ *           description: Acción que generó el match
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de actualización
+ * 
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID único del usuario
+ *         firstName:
+ *           type: string
+ *           description: Nombre del usuario
+ *         lastName:
+ *           type: string
+ *           description: Apellido del usuario
+ *         email:
+ *           type: string
+ *           description: Correo electrónico
+ *         password:
+ *           type: string
+ *           description: Contraseña encriptada
+ *         age:
+ *           type: integer
+ *           description: Edad del usuario
+ *         gender:
+ *           type: string
+ *           description: Género del usuario
+ *         location:
+ *           type: string
+ *           description: Ubicación del usuario
+ *         profilePicture:
+ *           type: string
+ *           format: uri
+ *           description: URL de la foto de perfil
+ *         preferences:
+ *           type: object
+ *           properties:
+ *             genders:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Match'
+ *                 type: string
+ *             min_age:
+ *               type: integer
+ *             max_age:
+ *               type: integer
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
  */
 router.get('/v1/matches', authMiddleware, matchController.getAllMatches);
-
-/**
- * @swagger
- * /v1/matches/{id}:
- *   get:
- *     summary: Obtener un match por ID
- *     security:
- *       - bearerAuth: []
- *     tags:
- *       - Matches
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Match encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Match'
- *       404:
- *         description: Match no encontrado
- */
-router.get('/v1/matches/:id', authMiddleware, matchController.getMatchById);
 
 /**
  * @swagger
@@ -84,9 +116,9 @@ router.get('/v1/matches/:id', authMiddleware, matchController.getMatchById);
  *                 type: string
  *                 format: ObjectId
  *               swipe:
- *                 type: string
- *                 enum: [like, dislike]
- *                 example: like
+ *                 type: boolean
+ *                 enum: [true, false]
+ *                 example: true
  *     responses:
  *       201:
  *         description: Match creado correctamente

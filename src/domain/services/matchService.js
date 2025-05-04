@@ -5,13 +5,15 @@ const matchService = {
     return await Match.find().populate('user1 user2');
   },
 
-  getMatchById: async (id) => {
-    const match = await Match.findById(id).populate('user1 user2');
-    if (!match) throw new Error('Match no encontrado');
-    return match;
-  },
-
   createMatch: async (data) => {
+    const { user1, user2 } = data;
+
+    const matchExistente = await Match.findOne({ user1, user2 });
+
+    if (matchExistente) {
+      throw new Error('Ya existe un match entre estos dos usuarios');
+    }
+
     const nuevoMatch = new Match(data);
     return await nuevoMatch.save();
   },
@@ -22,11 +24,33 @@ const matchService = {
     return eliminado;
   },
 
-  getUserMatches: async (userId) => {
+  getUserMatches2: async (userId) => {
     return await Match.find({
       $or: [{ user1: userId }, { user2: userId }]
     }).populate('user1 user2');
+  },
+
+  getUserMatches: async (userId) => {
+    const matches = await Match.find({
+      $or: [{ user1: userId }, { user2: userId }]
+    }).populate('user1 user2');
+  
+    const result = matches.map(match => {
+      const matchObj = match.toObject();
+  
+      if (matchObj.user1._id.toString() === userId) {
+        delete matchObj.user1;
+      } else {
+        delete matchObj.user2;
+      }
+  
+      return matchObj;
+    });
+  
+    return result;
   }
+  
+
 };
 
 module.exports = matchService;
