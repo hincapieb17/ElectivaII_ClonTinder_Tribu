@@ -1,6 +1,4 @@
 const Usuario = require('../models/User');
-const Swipe = require('../models/Swipe');
-const Match = require('../models/Match');
 const bcrypt = require('bcryptjs');
 
 const userService = {
@@ -40,23 +38,8 @@ const userService = {
     const user = await Usuario.findByIdAndDelete(id);
     if (!user) throw new Error('Usuario no encontrado');
     return user;
-  },
-
-  createSwipe: async (userId, likedUserId, swipe) => {
-    const existing = await Swipe.findOne({ userId, likedUserId });
-    if (existing) throw new Error('Ya existe un swipe');
-
-    const newSwipe = new Swipe({ userId, likedUserId, swipe });
-    return await newSwipe.save();
-  },
-
-  getUserSwipes: async (userId) => {
-    return await Swipe.find({ userId });
-  },
-
-  getUsersWithLikeSwipe: async () => {
-    return await Match.find({ swipe: 'like' }).populate('user1 user2');
   }
+  
 };
 
 module.exports = userService;

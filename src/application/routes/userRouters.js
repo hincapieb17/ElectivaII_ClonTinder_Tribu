@@ -17,6 +17,8 @@ const router = express.Router();
  *     summary: Obtener todos los usuarios
  *     security:
  *       - bearerAuth: []
+ *     tags:
+ *       - User
  *     responses:
  *       200:
  *         description: Lista de usuarios obtenida correctamente
@@ -50,11 +52,13 @@ router.route('/v1/users').get(authMiddleware, userController.getUsers);
 
 /**
  * @swagger
- * /v1/user/{id}:
+ * /v1/userId/{id}:
  *   get:
  *     summary: Obtener un usuario por ID
  *     security:
  *       - bearerAuth: []
+ *     tags:
+ *       - User
  *     parameters:
  *       - in: path
  *         name: id
@@ -88,7 +92,51 @@ router.route('/v1/users').get(authMiddleware, userController.getUsers);
  *                   type: string
  *                   example: 555-123-4567
  */
-router.route('/v1/user/:id').get(authMiddleware, userController.getUserById);
+router.route('/v1/userId/:id').get(authMiddleware, userController.getUserById);
+
+/**
+ * @swagger
+ * /v1/userEmail/{email}:
+ *   get:
+ *     summary: Obtener un usuario por Email
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - User
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Usuario obtenido correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 email:
+ *                   type: string
+ *                   example: john.doe@example.com
+ *                 firstName:
+ *                   type: string
+ *                   example: John
+ *                 lastName:
+ *                   type: string
+ *                   example: Doe
+ *                 address:
+ *                   type: string
+ *                   example: 123 Main St, Anytown, CA 12345
+ *                 phoneNumber:
+ *                   type: string
+ *                   example: 555-123-4567
+ */
+router.route('/v1/userEmail/:email').get(authMiddleware, userController.getUserByEmail);
 
 /**
  * @swagger
@@ -97,6 +145,8 @@ router.route('/v1/user/:id').get(authMiddleware, userController.getUserById);
  *     summary: Crear un nuevo usuario
  *     security:
  *       - bearerAuth: []
+ *     tags:
+ *       - User
  *     requestBody:
  *       required: true
  *       content:
@@ -158,6 +208,8 @@ router.route('/v1/createUser').post(validateUser, userController.createUser);
  *     summary: Actualizar un usuario por ID
  *     security:
  *       - bearerAuth: []
+ *     tags:
+ *       - User
  *     parameters:
  *       - in: path
  *         name: id
@@ -202,6 +254,8 @@ router.route('/v1/updateUser/:id').put(authMiddleware, validateUser, userControl
  *     summary: Eliminar un usuario por ID
  *     security:
  *       - bearerAuth: []
+ *     tags:
+ *       - User
  *     parameters:
  *       - in: path
  *         name: id
@@ -232,6 +286,8 @@ router.route('/v1/deleteUser/:id').delete(authMiddleware, userController.deleteU
  *               password:
  *                 type: string
  *                 example: clave123
+ *     tags:
+ *       - User
  *     responses:
  *       200:
  *         description: Usuario autenticado correctamente, devuelve el token
