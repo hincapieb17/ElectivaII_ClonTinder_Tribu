@@ -48,7 +48,7 @@ Thumbs.db
 # Archivos generados por pruebas
 coverage/
 jest/
-*.test.js
+#*.test.js
 *.spec.js
 
 # Caché de TypeScript
