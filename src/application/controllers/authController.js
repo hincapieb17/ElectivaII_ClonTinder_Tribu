@@ -5,9 +5,9 @@ const authController = {
         try {
             const { email, password } = req.body;
 
-            const token = await authService.loginUser(email, password);
+            const data = await authService.loginUser(email, password);
 
-            res.json({ token });
+            res.json(data);
         } catch (error) {
             res.status(500).json({ message: 'Error en el servidor' });
         }

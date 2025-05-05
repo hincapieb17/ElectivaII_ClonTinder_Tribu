@@ -39,10 +39,13 @@ const matchService = {
       const matchObj = match.toObject();
   
       if (matchObj.user1._id.toString() === userId) {
-        delete matchObj.user1;
+        matchObj.user = matchObj.user2;
       } else {
-        delete matchObj.user2;
+        matchObj.user = matchObj.user1;
       }
+  
+      delete matchObj.user1;
+      delete matchObj.user2;
   
       return matchObj;
     });
